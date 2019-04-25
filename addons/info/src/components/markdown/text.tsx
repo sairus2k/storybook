@@ -1,10 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 
-const defaultProps = { children: null };
-const propTypes = { children: PropTypes.node };
+type Props = typeof defaultProps;
+const defaultProps = { children: null as ReactNode };
 
-export function P({ children }) {
+export function P({ children }: Props) {
   const style = {
     fontSize: '15px',
   };
@@ -17,9 +16,8 @@ export function P({ children }) {
 }
 
 P.defaultProps = defaultProps;
-P.propTypes = propTypes;
 
-export function LI({ children }) {
+export function LI({ children }: Props) {
   const style = {
     fontSize: '15px',
   };
@@ -27,9 +25,8 @@ export function LI({ children }) {
 }
 
 LI.defaultProps = defaultProps;
-LI.propTypes = propTypes;
 
-export function UL({ children }) {
+export function UL({ children }: Props) {
   const style = {
     fontSize: '15px',
   };
@@ -37,9 +34,12 @@ export function UL({ children }) {
 }
 
 UL.defaultProps = defaultProps;
-UL.propTypes = propTypes;
 
-export function A({ href, children }) {
+type AProps = {
+  href: string;
+} & Props;
+
+export function A({ href, children }: AProps) {
   const style = {
     color: '#3498db',
   };
@@ -51,4 +51,3 @@ export function A({ href, children }) {
 }
 
 A.defaultProps = defaultProps;
-A.propTypes = { children: PropTypes.node, href: PropTypes.string.isRequired };

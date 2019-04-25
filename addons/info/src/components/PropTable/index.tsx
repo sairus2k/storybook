@@ -1,16 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
+// @ts-ignore todo: migrate PrettyPropType to TypeScript
 import PrettyPropType from '../types/PrettyPropType';
+// @ts-ignore todo: migrate PropVal to TypeScript
 import PropVal from '../PropVal';
-import Table from './components/Table';
-import Tbody from './components/Tbody';
-import Td from './components/Td';
-import Th from './components/Th';
-import Thead from './components/Thead';
-import Tr from './components/Tr';
+// @ts-ignore todo: migrate PropTable components to TypeScript
+import { Table, Tbody, Td, Th, Thead, Tr } from './components';
 
-export const multiLineText = input => {
+export const multiLineText = (input: any) => {
   if (!input) {
     return input;
   }
@@ -20,14 +17,16 @@ export const multiLineText = input => {
   return isSingleLine
     ? text
     : arrayOfText.map((lineOfText, i) => (
-        // eslint-disable-next-line react/no-array-index-key
         <span key={`${lineOfText}.${i}`}>
           {i > 0 && <br />} {lineOfText}
         </span>
       ));
 };
 
-const determineIncludedPropTypes = (propDefinitions, excludedPropTypes) => {
+const determineIncludedPropTypes = (
+  propDefinitions: PropsDefinition[],
+  excludedPropTypes: string[]
+) => {
   if (excludedPropTypes.length === 0) {
     return propDefinitions;
   }
@@ -37,7 +36,24 @@ const determineIncludedPropTypes = (propDefinitions, excludedPropTypes) => {
   );
 };
 
-export default function PropTable(props) {
+interface PropsDefinition {
+  property: string;
+  propType?: string | object;
+  required?: boolean;
+  description?: string;
+  defaultValue?: any;
+}
+
+interface Props {
+  type?: () => void;
+  maxPropObjectKeys: number;
+  maxPropArrayLength: number;
+  maxPropStringLength: number;
+  excludedPropTypes: string[];
+  propDefinitions: PropsDefinition[];
+}
+
+export default function PropTable(props: Props) {
   const {
     type,
     maxPropObjectKeys,
@@ -102,20 +118,4 @@ PropTable.defaultProps = {
   type: null,
   propDefinitions: [],
   excludedPropTypes: [],
-};
-PropTable.propTypes = {
-  type: PropTypes.func,
-  maxPropObjectKeys: PropTypes.number.isRequired,
-  maxPropArrayLength: PropTypes.number.isRequired,
-  maxPropStringLength: PropTypes.number.isRequired,
-  excludedPropTypes: PropTypes.arrayOf(PropTypes.string),
-  propDefinitions: PropTypes.arrayOf(
-    PropTypes.shape({
-      property: PropTypes.string.isRequired,
-      propType: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-      required: PropTypes.bool,
-      description: PropTypes.string,
-      defaultValue: PropTypes.any,
-    })
-  ),
 };

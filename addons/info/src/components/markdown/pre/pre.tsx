@@ -1,17 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 
 import CopyButton from './copyButton';
 import copy from './copy';
 
 const TOGGLE_TIMEOUT = 1800;
 
-class Pre extends React.Component {
-  state = {
-    copied: false,
+interface Props {
+  children: ReactNode;
+  theme: {
+    pre?: object;
   };
+}
 
-  setRef = elem => {
+type State = typeof initialState;
+const initialState = {
+  copied: false,
+};
+
+class Pre extends React.Component<Props, State> {
+  static defaultProps: Props = {
+    children: null,
+    theme: {},
+  };
+  state = initialState;
+  pre: HTMLDivElement | null;
+  timeout: number;
+
+  setRef = (elem: HTMLDivElement | null) => {
     this.pre = elem;
   };
 
@@ -60,17 +75,5 @@ class Pre extends React.Component {
     );
   }
 }
-
-Pre.propTypes = {
-  children: PropTypes.node,
-  theme: PropTypes.shape({
-    pre: PropTypes.object,
-  }),
-};
-
-Pre.defaultProps = {
-  children: null,
-  theme: {},
-};
 
 export default Pre;

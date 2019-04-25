@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
-export default function copy(str) {
-  const tmp = document.createElement('TEXTAREA');
+export default function copy(str: string) {
+  const tmp = document.createElement('textarea');
   const focus = document.activeElement;
 
   tmp.value = str;
@@ -9,5 +8,7 @@ export default function copy(str) {
   tmp.select();
   document.execCommand('copy');
   document.body.removeChild(tmp);
-  focus.focus();
+  if (focus instanceof HTMLElement) {
+    focus.focus();
+  }
 }

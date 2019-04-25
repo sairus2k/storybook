@@ -1,16 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { CSSProperties, ReactNode } from 'react';
 
+type Props = typeof defaultProps;
 const defaultProps = {
-  children: null,
-  id: null,
-};
-const propTypes = {
-  children: PropTypes.node,
-  id: PropTypes.string,
+  children: null as ReactNode,
+  id: null as string,
 };
 
-export function H1({ id, children }) {
+export function H1({ id, children }: Props) {
   const styles = {
     borderBottom: '1px solid #eee',
     fontWeight: 600,
@@ -26,9 +22,8 @@ export function H1({ id, children }) {
 }
 
 H1.defaultProps = defaultProps;
-H1.propTypes = propTypes;
 
-export function H2({ id, children }) {
+export function H2({ id, children }: Props) {
   const styles = {
     fontWeight: 600,
     margin: 0,
@@ -43,10 +38,9 @@ export function H2({ id, children }) {
 }
 
 H2.defaultProps = defaultProps;
-H2.propTypes = propTypes;
 
-export function H3({ id, children }) {
-  const styles = {
+export function H3({ id, children }: Props) {
+  const styles: CSSProperties = {
     fontWeight: 600,
     margin: 0,
     padding: 0,
@@ -61,9 +55,8 @@ export function H3({ id, children }) {
 }
 
 H3.defaultProps = defaultProps;
-H3.propTypes = propTypes;
 
-export function H4({ id, children }) {
+export function H4({ id, children }: Props) {
   const styles = {
     fontWeight: 600,
     margin: 0,
@@ -78,9 +71,8 @@ export function H4({ id, children }) {
 }
 
 H4.defaultProps = defaultProps;
-H4.propTypes = propTypes;
 
-export function H5({ id, children }) {
+export function H5({ id, children }: Props) {
   const styles = {
     fontWeight: 600,
     margin: 0,
@@ -95,9 +87,8 @@ export function H5({ id, children }) {
 }
 
 H5.defaultProps = defaultProps;
-H5.propTypes = propTypes;
 
-export function H6({ id, children }) {
+export function H6({ id, children }: Props) {
   const styles = {
     fontWeight: 400,
     margin: 0,
@@ -112,4 +103,3 @@ export function H6({ id, children }) {
 }
 
 H6.defaultProps = defaultProps;
-H6.propTypes = propTypes;

@@ -1,7 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function CopyButton({ onClick, toggled }) {
+interface Props {
+  onClick?: () => void;
+  toggled?: boolean;
+}
+
+function CopyButton({ onClick, toggled }: Props) {
   const toggleText = 'Copied!';
   const text = 'Copy';
 
@@ -14,7 +18,7 @@ function CopyButton({ onClick, toggled }) {
         cursor: 'pointer',
         fontSize: '13px',
         alignSelf: 'flex-start',
-        flexShrink: '0',
+        flexShrink: 0,
         overflow: 'hidden',
         borderWidth: '1px',
         borderStyle: 'solid',
@@ -28,11 +32,6 @@ function CopyButton({ onClick, toggled }) {
     </button>
   );
 }
-
-CopyButton.propTypes = {
-  onClick: PropTypes.func,
-  toggled: PropTypes.bool,
-};
 
 CopyButton.defaultProps = {
   onClick: () => {},

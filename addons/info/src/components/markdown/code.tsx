@@ -1,17 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 import { SyntaxHighlighter } from '@storybook/components';
 
-// XXX: is this a bug? should it be (props) => ?
-const Code = ({ props }) => <SyntaxHighlighter bordered copyable {...props} />;
+interface CodeProps {
+  props: SyntaxHighlighter['props'];
+}
 
-Code.propTypes = {
-  props: PropTypes.shape({}).isRequired,
-};
+// XXX: is this a bug? should it be (props) => ?
+const Code = ({ props }: CodeProps) => <SyntaxHighlighter bordered copyable {...props} />;
 
 export { Code };
 
-export function Blockquote({ children }) {
+interface BlockquoteProps {
+  children: ReactNode;
+}
+
+export function Blockquote({ children }: BlockquoteProps) {
   const style = {
     fontSize: '1.88em',
     fontFamily: 'Menlo, Monaco, "Courier New", monospace',
@@ -21,7 +24,6 @@ export function Blockquote({ children }) {
   return <blockquote style={style}>{children}</blockquote>;
 }
 
-Blockquote.propTypes = { children: PropTypes.node };
 Blockquote.defaultProps = { children: null };
 
 export { default as Pre } from './pre/pre';

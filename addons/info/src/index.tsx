@@ -1,10 +1,12 @@
 import React from 'react';
 import nestedObjectAssign from 'nested-object-assign';
 import deprecate from 'util-deprecate';
-import { makeDecorator } from '@storybook/addons';
+import { makeDecorator, StoryContext, StoryGetter } from '@storybook/addons';
 import { logger } from '@storybook/client-logger';
+// @ts-ignore todo: migrate Story to TypeScript
 import Story from './components/Story';
 import PropTable from './components/PropTable/index';
+// @ts-ignore todo: migrate makeTableComponent to Typescript
 import makeTableComponent from './components/makeTableComponent';
 import { H1, H2, H3, H4, H5, H6, Code, P, UL, A, LI } from './components/markdown';
 
@@ -12,7 +14,7 @@ const defaultOptions = {
   inline: false,
   header: true,
   source: true,
-  propTables: [],
+  propTables: [] as React.ReactNode[] | false,
   TableComponent: PropTable,
   maxPropsIntoLine: 3,
   maxPropObjectKeys: 3,
@@ -36,7 +38,7 @@ const defaultComponents = {
 
 let hasWarned = false;
 
-function addInfo(storyFn, context, infoOptions) {
+function addInfo(storyFn: StoryGetter, context: StoryContext, infoOptions: any) {
   const options = {
     ...defaultOptions,
     ...infoOptions,
@@ -70,7 +72,7 @@ function addInfo(storyFn, context, infoOptions) {
     styles:
       typeof options.styles === 'function'
         ? options.styles
-        : s => nestedObjectAssign({}, s, options.styles),
+        : (s: any) => nestedObjectAssign({}, s, options.styles),
     propTables: options.propTables,
     propTablesExclude: options.propTablesExclude,
     PropTable: makeTableComponent(options.TableComponent),
@@ -99,9 +101,9 @@ export const withInfo = makeDecorator({
 
 export { Story };
 
-export function setDefaults(newDefaults) {
+export function setDefaults(newDefaults: { propTables: boolean }) {
   return deprecate(
-    () => Object.assign(defaultOptions, newDefaults),
+    () => ({ ...defaultOptions, ...newDefaults }),
     'setDefaults is deprecated. Instead, you can pass options into withInfo(options) directly, or use the info parameter.'
   )();
 }
